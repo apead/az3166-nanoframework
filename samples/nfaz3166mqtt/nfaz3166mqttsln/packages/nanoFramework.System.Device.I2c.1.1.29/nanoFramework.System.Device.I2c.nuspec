@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>nanoFramework.System.Device.I2c</id>
+    <version>1.1.29</version>
+    <title>nanoFramework.System.Device.I2c</title>
+    <authors>nanoframework</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <icon>images\nf-logo.png</icon>
+    <readme>docs\README.md</readme>
+    <projectUrl>https://github.com/nanoframework/System.Device.I2c</projectUrl>
+    <description>This package includes the System.Device.I2c assembly for nanoFramework C# projects.
+This package requires a target with System.Device.I2c v100.0.0.2 (checksum 0xFA806D33).</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) .NET Foundation and Contributors</copyright>
+    <tags>nanoFramework C# csharp netmf netnf I2c</tags>
+    <repository type="git" url="https://github.com/nanoframework/System.Device.I2c" commit="ac5858c8be7d7b917854328ebc023c8bf66dbfee" />
+    <dependencies>
+      <dependency id="nanoFramework.CoreLibrary" version="1.17.11" />
+    </dependencies>
+  </metadata>
+</package>

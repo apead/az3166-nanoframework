@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>nanoFramework.System.Device.Gpio</id>
+    <version>1.1.57</version>
+    <title>nanoFramework.System.Device.Gpio</title>
+    <authors>nanoframework</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <icon>images\nf-logo.png</icon>
+    <readme>docs\README.md</readme>
+    <projectUrl>https://github.com/nanoframework/System.Device.Gpio</projectUrl>
+    <description>This package includes the System.Device.Gpio assembly for .NET nanoFramework C# projects.
+This package requires a target with System.Device.Gpio v100.1.0.6 (checksum 0x097E7BC5).</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) .NET Foundation and Contributors</copyright>
+    <tags>nanoFramework C# csharp netmf netnf Gpio</tags>
+    <repository type="git" url="https://github.com/nanoframework/System.Device.Gpio" commit="8b832b8512adcf2b8d5802095402d3bd11fb8b10" />
+    <dependencies>
+      <dependency id="nanoFramework.CoreLibrary" version="1.17.11" />
+      <dependency id="nanoFramework.Runtime.Events" version="1.11.32" />
+    </dependencies>
+  </metadata>
+</package>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>nanoFramework.CoreLibrary</id>
+    <version>1.17.11</version>
+    <title>nanoFramework.CoreLibrary</title>
+    <authors>nanoframework</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <icon>images\nf-logo.png</icon>
+    <readme>docs\README.md</readme>
+    <projectUrl>https://github.com/nanoframework/CoreLibrary</projectUrl>
+    <description>This package includes the CoreLibrary assembly for .NET nanoFramework C# projects.
+This package requires a target with mscorlib v100.5.0.24 (checksum 0x1549C856).
+In case you don't need the System.Reflection API there is another NuGet package without this API.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) .NET Foundation and Contributors</copyright>
+    <tags>nanoFramework C# csharp netmf netnf nanoFramework.CoreLibrary</tags>
+    <repository type="git" url="https://github.com/nanoframework/CoreLibrary" commit="e44d82ddb4e5067ddbac2c40a4555d2c46bab659" />
+  </metadata>
+</package>

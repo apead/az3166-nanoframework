@@ -1,0 +1,553 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>nanoFramework.M2Mqtt.Core</name>
+    </assembly>
+    <members>
+        <member name="T:nanoFramework.M2Mqtt.IMqttClient">
+            <summary>
+            Interface for MQTT client.
+            </summary>
+            <remarks>This is compatible with the full nanoFramceork M2Mqtt client. But the implementation is different.
+            The change of the nanoFramework M2Mqtt client is not done yet. Once done, this interface will be removed and replaced by a reference to the core nanoFramework M2Mqtt client nuget containing the core elements.
+            In the longer term, this will allow to use higher level classes like Azure or AWS in a full transparent way.
+            </remarks>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.IMqttClient.IsConnected">
+            <summary>
+            Gets a value indicating whether the connection status between client and broker.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.M2Mqtt.IMqttClient.Init(System.String,System.Int32,System.Boolean,System.Byte[],System.Byte[],nanoFramework.M2Mqtt.MqttSslProtocols)">
+            <summary>
+            MqttClient initialization
+            </summary>
+            <param name="brokerHostName">Broker Host Name or IP Address</param>
+            <param name="brokerPort">Broker port</param>
+            <param name="secure">>Using secure connection</param>
+            <param name="caCert">CA certificate for secure connection</param>
+            <param name="clientCert">Client certificate</param>
+            <param name="sslProtocol">SSL/TLS protocol version</param>
+        </member>
+        <member name="M:nanoFramework.M2Mqtt.IMqttClient.Connect(System.String,System.String,System.String,System.Boolean,nanoFramework.M2Mqtt.Messages.MqttQoSLevel,System.Boolean,System.String,System.String,System.Boolean,System.UInt16)">
+            <summary>
+            Connect to broker.
+            </summary>
+            <param name="clientId">Client identifier.</param>
+            <param name="username">Username.</param>
+            <param name="password">Password.</param>
+            <param name="willRetain">Will retain flag.</param>
+            <param name="willQosLevel">Will QOS level.</param>
+            <param name="willFlag">Will flag.</param>
+            <param name="willTopic">Will topic.</param>
+            <param name="willMessage">Will message.</param>
+            <param name="cleanSession">Clean sessione flag.</param>
+            <param name="keepAlivePeriod">Keep alive period.</param>
+            <returns>Return code of CONNACK message from broker.</returns>
+        </member>
+        <member name="M:nanoFramework.M2Mqtt.IMqttClient.Disconnect">
+            <summary>
+            Disconnect from broker.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.M2Mqtt.IMqttClient.Subscribe(System.String[],nanoFramework.M2Mqtt.Messages.MqttQoSLevel[])">
+            <summary>
+            Subscribe for message topics.
+            </summary>
+            <param name="topics">List of topics to subscribe.</param>
+            <param name="qosLevels">QOS levels related to topics.</param>
+            <returns>Message Id related to SUBSCRIBE message.</returns>
+        </member>
+        <member name="M:nanoFramework.M2Mqtt.IMqttClient.Unsubscribe(System.String[])">
+            <summary>
+            Unsubscribe for message topics.
+            </summary>
+            <param name="topics">List of topics to unsubscribe.</param>
+            <returns>Message Id in UNSUBACK message from broker.</returns>
+        </member>
+        <member name="M:nanoFramework.M2Mqtt.IMqttClient.Publish(System.String,System.Byte[],System.String,System.Collections.ArrayList,nanoFramework.M2Mqtt.Messages.MqttQoSLevel,System.Boolean)">
+            <summary>
+            Publish a message asynchronously.
+            </summary>
+            <param name="topic">Message topic.</param>
+            <param name="message">Message data (payload).</param>
+            <param name="contentType">Content of the application message. This is only available for MQTT v5.0.</param>
+            <param name="userProperties">User properties for the application message. This is only available for MQTT v5.0.</param>
+            <param name="qosLevel">QoS Level.</param>
+            <param name="retain">Retain flag.</param>
+            <returns>Message Id related to PUBLISH message.</returns>
+            <exception cref="T:System.ArgumentException">If <paramref name="userProperties"/> elements aren't of type <see cref="T:nanoFramework.M2Mqtt.Messages.UserProperty"/>.</exception>
+            <exception cref="T:System.NotSupportedException">If setting a parameter that is not supported in the MQTT version set for this <see cref="T:nanoFramework.M2Mqtt.IMqttClient"/>.</exception>
+        </member>
+        <member name="M:nanoFramework.M2Mqtt.IMqttClient.Publish(System.String,System.Byte[],System.String)">
+            <summary>
+            Publish a message asynchronously (QoS Level <see cref="F:nanoFramework.M2Mqtt.Messages.MqttQoSLevel.AtMostOnce"/> and not retained).
+            </summary>
+            <param name="topic">Message topic.</param>
+            <param name="message">Message data (payload).</param>
+            <param name="contentType">Content of the application message. This is only available for MQTT v5.0.</param>
+            <returns>Message Id related to PUBLISH message.</returns>
+            <exception cref="T:System.NotSupportedException">If setting a parameter that is not supported in the MQTT version set for this <see cref="T:nanoFramework.M2Mqtt.IMqttClient"/>.</exception>
+        </member>
+        <member name="M:nanoFramework.M2Mqtt.IMqttClient.Publish(System.String,System.Byte[])">
+            <summary>
+            Publish a message asynchronously (QoS Level <see cref="F:nanoFramework.M2Mqtt.Messages.MqttQoSLevel.AtMostOnce"/> and not retained).
+            </summary>
+            <param name="topic">Message topic.</param>
+            <param name="message">Message data (payload).</param>
+            <returns>Message Id related to PUBLISH message.</returns>
+        </member>
+        <member name="M:nanoFramework.M2Mqtt.IMqttClient.Close">
+            <summary>
+            Close client
+            </summary>
+        </member>
+        <member name="T:nanoFramework.M2Mqtt.IMqttClient.MqttMsgPublishEventHandler">
+            <summary>
+            Delegate that defines event handler for PUBLISH message received.
+            </summary>
+        </member>
+        <member name="E:nanoFramework.M2Mqtt.IMqttClient.MqttMsgPublishReceived">
+            <summary>
+            The event for PUBLISH message received.
+            </summary>
+        </member>
+        <member name="T:nanoFramework.M2Mqtt.IMqttClient.MqttMsgPublishedEventHandler">
+            <summary>
+            Delegate that defines event handler for published message.
+            </summary>
+        </member>
+        <member name="E:nanoFramework.M2Mqtt.IMqttClient.MqttMsgPublished">
+            <summary>
+            The event for published message.
+            </summary>
+        </member>
+        <member name="T:nanoFramework.M2Mqtt.IMqttClient.MqttMsgSubscribedEventHandler">
+            <summary>
+            Delegate that defines event handler for subscribed topic.
+            </summary>
+        </member>
+        <member name="E:nanoFramework.M2Mqtt.IMqttClient.MqttMsgSubscribed">
+            <summary>
+            The event for subscribed topic.
+            </summary>
+        </member>
+        <member name="T:nanoFramework.M2Mqtt.IMqttClient.MqttMsgUnsubscribedEventHandler">
+            <summary>
+            Delegate that defines event handler for unsubscribed topic.
+            </summary>
+        </member>
+        <member name="E:nanoFramework.M2Mqtt.IMqttClient.MqttMsgUnsubscribed">
+            <summary>
+            The event for unsubscribed topic.
+            </summary>
+        </member>
+        <member name="T:nanoFramework.M2Mqtt.IMqttClient.ConnectionClosedEventHandler">
+            <summary>
+            Delegate that defines event handler for client/peer disconnection.
+            </summary>
+        </member>
+        <member name="E:nanoFramework.M2Mqtt.IMqttClient.ConnectionClosed">
+            <summary>
+            The event for peer/client disconnection.
+            </summary>
+        </member>
+        <member name="T:nanoFramework.M2Mqtt.Messages.MqttMsgPublishedEventArgs">
+            <summary>
+            Represents the event arguments for a published message.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.Messages.MqttMsgPublishedEventArgs.MessageId">
+            <summary>
+            Gets or sets the message identifier.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.Messages.MqttMsgPublishedEventArgs.IsPublished">
+            <summary>
+            Gets or sets a value indicating whether the message was published (or failed due to retries).
+            </summary>
+        </member>
+        <member name="M:nanoFramework.M2Mqtt.Messages.MqttMsgPublishedEventArgs.#ctor(System.UInt16)">
+            <summary>
+            Initializes a new instance of the <see cref="T:nanoFramework.M2Mqtt.Messages.MqttMsgPublishedEventArgs"/> class for a published message.
+            </summary>
+            <param name="messageId">The message identifier that was published.</param>
+        </member>
+        <member name="M:nanoFramework.M2Mqtt.Messages.MqttMsgPublishedEventArgs.#ctor(System.UInt16,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:nanoFramework.M2Mqtt.Messages.MqttMsgPublishedEventArgs"/> class.
+            </summary>
+            <param name="messageId">The message identifier.</param>
+            <param name="isPublished">A value indicating whether the message was published.</param>
+        </member>
+        <member name="T:nanoFramework.M2Mqtt.Messages.MqttMsgPublishEventArgs">
+            <summary>
+            Represents the event arguments for a PUBLISH message received from the broker.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.Messages.MqttMsgPublishEventArgs.Topic">
+            <summary>
+            Gets the topic of the received message.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.Messages.MqttMsgPublishEventArgs.Message">
+            <summary>
+            Gets the data of the received message.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.Messages.MqttMsgPublishEventArgs.DupFlag">
+            <summary>
+            Gets a value indicating whether the message is a duplicate delivery.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.Messages.MqttMsgPublishEventArgs.QosLevel">
+            <summary>
+            Gets the Quality of Service (QoS) level of the message.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.Messages.MqttMsgPublishEventArgs.Retain">
+            <summary>
+            Gets a value indicating whether the message should be retained by the broker.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.M2Mqtt.Messages.MqttMsgPublishEventArgs.#ctor(System.String,System.Byte[],System.Boolean,nanoFramework.M2Mqtt.Messages.MqttQoSLevel,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:nanoFramework.M2Mqtt.Messages.MqttMsgPublishEventArgs"/> class with the specified parameters.
+            </summary>
+            <param name="topic">The topic of the received message.</param>
+            <param name="message">The data of the received message.</param>
+            <param name="dupFlag">A value indicating whether the message is a duplicate delivery.</param>
+            <param name="qosLevel">The Quality of Service (QoS) level of the message.</param>
+            <param name="retain">A value indicating whether the message should be retained by the broker.</param>
+        </member>
+        <member name="T:nanoFramework.M2Mqtt.Messages.MqttMsgSubscribedEventArgs">
+            <summary>
+            Represents the event arguments for successfully subscribed topics.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.Messages.MqttMsgSubscribedEventArgs.MessageId">
+            <summary>
+            Gets the message identifier associated with the subscription request.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.Messages.MqttMsgSubscribedEventArgs.GrantedQoSLevels">
+            <summary>
+            Gets the list of granted Quality of Service (QoS) levels for the subscribed topics.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.M2Mqtt.Messages.MqttMsgSubscribedEventArgs.#ctor(System.UInt16,nanoFramework.M2Mqtt.Messages.MqttQoSLevel[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:nanoFramework.M2Mqtt.Messages.MqttMsgSubscribedEventArgs"/> class with the specified parameters.
+            </summary>
+            <param name="messageId">The message identifier associated with the subscription request.</param>
+            <param name="grantedQosLevels">The list of granted Quality of Service (QoS) levels for the subscribed topics.</param>
+        </member>
+        <member name="T:nanoFramework.M2Mqtt.Messages.MqttMsgSubscribeEventArgs">
+            <summary>
+            Represents the event arguments for a subscription request on topics.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.Messages.MqttMsgSubscribeEventArgs.MessageId">
+            <summary>
+            Gets the message identifier associated with the subscription request.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.Messages.MqttMsgSubscribeEventArgs.Topics">
+            <summary>
+            Gets the topics requested to subscribe.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.Messages.MqttMsgSubscribeEventArgs.QoSLevels">
+            <summary>
+            Gets the list of Quality of Service (QoS) levels requested.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.M2Mqtt.Messages.MqttMsgSubscribeEventArgs.#ctor(System.UInt16,System.String[],nanoFramework.M2Mqtt.Messages.MqttQoSLevel[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:nanoFramework.M2Mqtt.Messages.MqttMsgSubscribeEventArgs"/> class with the specified parameters.
+            </summary>
+            <param name="messageId">The message identifier associated with the subscription request.</param>
+            <param name="topics">The topics requested to subscribe.</param>
+            <param name="qosLevels">The list of Quality of Service (QoS) levels requested.</param>
+        </member>
+        <member name="T:nanoFramework.M2Mqtt.Messages.MqttMsgUnsubscribedEventArgs">
+            <summary>
+            Represents the event arguments for when a topic has been unsubscribed.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.Messages.MqttMsgUnsubscribedEventArgs.MessageId">
+            <summary>
+            Gets the message identifier associated with the unsubscribed topic.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.M2Mqtt.Messages.MqttMsgUnsubscribedEventArgs.#ctor(System.UInt16)">
+            <summary>
+            Initializes a new instance of the <see cref="T:nanoFramework.M2Mqtt.Messages.MqttMsgUnsubscribedEventArgs"/> class with the specified message identifier.
+            </summary>
+            <param name="messageId">The message identifier associated with the unsubscribed topic.</param>
+        </member>
+        <member name="T:nanoFramework.M2Mqtt.Messages.MqttMsgUnsubscribeEventArgs">
+            <summary>
+            Represents the event arguments for unsubscribe request on topics.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.Messages.MqttMsgUnsubscribeEventArgs.MessageId">
+            <summary>
+            Gets the message identifier.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.Messages.MqttMsgUnsubscribeEventArgs.Topics">
+            <summary>
+            Gets the topics requested to subscribe.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.M2Mqtt.Messages.MqttMsgUnsubscribeEventArgs.#ctor(System.UInt16,System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:nanoFramework.M2Mqtt.Messages.MqttMsgUnsubscribeEventArgs"/> class with the specified message identifier and topics.
+            </summary>
+            <param name="messageId">The message identifier for subscribed topics.</param>
+            <param name="topics">The topics requested to unsubscribe from.</param>
+        </member>
+        <member name="T:nanoFramework.M2Mqtt.Messages.MqttQoSLevel">
+            <summary>
+            MQTT Quality of Service Level
+            </summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttQoSLevel.AtMostOnce">
+            <summary>
+            QOS At Most Once.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttQoSLevel.AtLeastOnce">
+            <summary>
+            QOS At Least Once.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttQoSLevel.ExactlyOnce">
+            <summary>
+            QOS Exactly Once.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttQoSLevel.GrantedFailure">
+            <summary>
+            Subscribe only QOS Granted Failure [v3.1.1].
+            </summary>
+        </member>
+        <member name="T:nanoFramework.M2Mqtt.Messages.MqttReasonCode">
+            <summary>
+            A Reason Code is a one byte unsigned value that indicates the result of an operation.
+            Reason Codes less than 0x80 indicate successful completion of an operation.
+            The normal Reason Code for success is 0.
+            Reason Code values of 0x80 or greater indicate failure.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.Success">
+            <summary>Success.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.NormalDisconnection">
+            <summary>Normal disconnection.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.GrantedQoS0">
+            <summary>Granted QoS 0.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.GrantedQoS1">
+            <summary>Granted QoS 1.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.GrantedQoS2">
+            <summary>Granted QoS 2.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.DisconnectWithWillMessage">
+            <summary>Disconnect with Will Message.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.NoMatchingSubscribers">
+            <summary>No matching subscribers.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.NoSubscriptionExisted">
+            <summary>No subscription existed.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.ContinueAuthentication">
+            <summary>Continue authentication.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.ReAuthenticate">
+            <summary>Re-authenticate.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.UnspecifiedError">
+            <summary>Unspecified error.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.MalformedPacket">
+            <summary>Malformed Packet.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.ProtocolError">
+            <summary>Protocol Error.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.ImplementationSpecificError">
+            <summary>Implementation specific error.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.UnsupportedProtocolVersion">
+            <summary>Unsupported Protocol Version.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.ClientIdentifierNotValid">
+            <summary>Client Identifier not valid.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.BadUserNameOrPassword">
+            <summary>Bad User Name or Password.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.NotAuthorized">
+            <summary>Not authorized.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.ServerUnavailable">
+            <summary>Server unavailable.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.ServerBusy">
+            <summary>Server busy.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.Banned">
+            <summary>Banned.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.ServeShuttingDown">
+            <summary>Server shutting down.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.BadAuthenticationMethod">
+            <summary>Bad authentication method.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.KeepAliveTimeout">
+            <summary>Keep Alive timeout.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.SessionTakenOver">
+            <summary>Session taken over.</summary>
+            
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.TopicFilterInvalid">
+            <summary>Topic Filter invalid.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.TopicNameInvalid">
+            <summary>Topic Name invalid.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.PacketIdentifierInUse">
+            <summary>Packet Identifier in use.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.PacketIdentifierNotFound">
+            <summary>Packet Identifier not found.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.ReceiveMaximumExceeded">
+            <summary>Receive Maximum exceeded.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.TopicAliasInvalid">
+            <summary>Topic Alias invalid.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.PacketTooLarge">
+            <summary>Packet too large.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.MessageRateTooHigh">
+            <summary>Message rate too high.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.QuotaExceeded">
+            <summary>Quota exceeded.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.AdministrativeAction">
+            <summary>Administrative action.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.PayloadFormatInvalid">
+            <summary>Payload format invalid.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.RetainNotSupported">
+            <summary>Retain not supported.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.QoSNotSupported">
+            <summary>QoS not supported.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.UseAnotherServer">
+            <summary>Use another server.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.ServerMoved">
+            <summary>Server moved.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.SharedSubscriptionsNotSupported">
+            <summary>Shared Subscriptions not supported.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.ConnectionRateExceeded">
+            <summary>Connection rate exceeded.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.MaximumConnectTime">
+            <summary>Maximum connect time.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.SubscriptionIdentifiersNotSupported">
+            <summary>Subscription Identifiers not supported.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.WildcardSubscriptionsNotSupported">
+            <summary>Wildcard Subscriptions not supported.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.ConnectionRefusedUnacceptableProtocolVersion">
+            <summary>The Server does not support the level of the MQTT protocol requested by the Client.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.ConnectionRefusedIdentifierRejected">
+            <summary>The Client identifier is correct UTF-8 but not allowed by the Server.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.ConnectionRefusedServerUnavailable">
+            <summary>The Network Connection has been made but the MQTT service is unavailable.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.ConnectionRefusedBadUserNameOrPassword">
+            <summary>The data in the user name or password is malformed.</summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.Messages.MqttReasonCode.ConnectionRefusedNotAuthorized">
+            <summary>The Client is not authorized to connect.</summary>
+        </member>
+        <member name="T:nanoFramework.M2Mqtt.Messages.UserProperty">
+            <summary>
+            A user property is a key value string pair, v5.0 only.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.M2Mqtt.Messages.UserProperty.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:nanoFramework.M2Mqtt.Messages.UserProperty"/> class with the specified name and value.
+            </summary>
+            <param name="name">The name of the property.</param>
+            <param name="value">The value of the property.</param>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.Messages.UserProperty.Name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.M2Mqtt.Messages.UserProperty.Value">
+            <summary>
+            Gets or sets the value.
+            </summary>
+        </member>
+        <member name="T:nanoFramework.M2Mqtt.MqttSslProtocols">
+            <summary>
+            Supported SSL/TLS protocol versions.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.MqttSslProtocols.None">
+            <summary>
+            None.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.MqttSslProtocols.SSLv3">
+            <summary>
+            SSL version 3.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.MqttSslProtocols.TLSv1_0">
+            <summary>
+            TLS version 1.0.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.MqttSslProtocols.TLSv1_1">
+            <summary>
+            TLS version 1.1.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.MqttSslProtocols.TLSv1_2">
+            <summary>
+            TLS version 1.2.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.M2Mqtt.MqttSslProtocols.TLSv1_3">
+            <summary>
+            TLS version 1.3.
+            </summary>
+        </member>
+    </members>
+</doc>

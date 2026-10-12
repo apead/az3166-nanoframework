@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>nanoFramework.Runtime.Native</id>
+    <version>1.7.11</version>
+    <title>nanoFramework.Runtime.Native</title>
+    <authors>nanoframework</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <icon>images\nf-logo.png</icon>
+    <readme>docs\README.md</readme>
+    <projectUrl>https://github.com/nanoframework/nanoFramework.Runtime.Native</projectUrl>
+    <description>This package includes the nanoFramework.Runtime.Native assembly for .NET nanoFramework C# projects.
+This package requires a target with nanoFramework.Runtime.Native v100.0.10.0 (checksum 0x0EAE898B).</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) .NET Foundation and Contributors</copyright>
+    <tags>nanoFramework C# csharp netmf netnf</tags>
+    <repository type="git" url="https://github.com/nanoframework/nanoFramework.Runtime.Native" commit="e70ef6920ca811b0403d667036fcbdc605d0e66e" />
+    <dependencies>
+      <dependency id="nanoFramework.CoreLibrary" version="1.17.11" />
+    </dependencies>
+  </metadata>
+</package>

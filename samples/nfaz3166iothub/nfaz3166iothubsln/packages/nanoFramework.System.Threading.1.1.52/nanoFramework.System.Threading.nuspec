@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>nanoFramework.System.Threading</id>
+    <version>1.1.52</version>
+    <title>nanoFramework.System.Threading</title>
+    <authors>nanoframework</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <icon>images\nf-logo.png</icon>
+    <readme>docs\README.md</readme>
+    <projectUrl>https://github.com/nanoframework/System.Threading</projectUrl>
+    <description>This package includes the nanoFramework.System.Threading assembly for .NET nanoFramework C# projects.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) .NET Foundation and Contributors</copyright>
+    <tags>nanoFramework C# csharp netmf netnf</tags>
+    <repository type="git" url="https://github.com/nanoframework/System.Threading" commit="866134ed5ae3faad59a2e5339c33d56f77eebee4" />
+    <dependencies>
+      <dependency id="nanoFramework.CoreLibrary" version="1.17.11" />
+    </dependencies>
+  </metadata>
+</package>

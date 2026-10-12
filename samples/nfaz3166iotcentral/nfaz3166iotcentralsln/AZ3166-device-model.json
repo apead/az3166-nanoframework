@@ -1,0 +1,48 @@
+{
+  "@context": [
+    "dtmi:iotcentral:context;2",
+    "dtmi:dtdl:context;2"
+  ],
+  "@id": "dtmi:azdevices:AZ3166;1",
+  "@type": "Interface",
+  "displayName": "MXCHIP AZ3166",
+  "description": "MXCHIP AZ3166 IoT DevKit running nanoFramework: climate, pressure, motion and compass sensors.",
+  "contents": [
+    { "@type": ["Telemetry", "Temperature"], "name": "temperature", "displayName": "Temperature", "schema": "double", "unit": "degreeCelsius" },
+    { "@type": ["Telemetry", "RelativeHumidity"], "name": "humidity", "displayName": "Humidity", "schema": "double", "unit": "percent" },
+    { "@type": "Telemetry", "name": "pressure", "displayName": "Pressure (hPa)", "schema": "double" },
+    {
+      "@type": "Telemetry", "name": "accel", "displayName": "Acceleration (g)",
+      "schema": { "@type": "Object", "fields": [
+        { "name": "x", "schema": "double" }, { "name": "y", "schema": "double" }, { "name": "z", "schema": "double" } ] }
+    },
+    {
+      "@type": "Telemetry", "name": "gyro", "displayName": "Gyroscope (dps)",
+      "schema": { "@type": "Object", "fields": [
+        { "name": "x", "schema": "double" }, { "name": "y", "schema": "double" }, { "name": "z", "schema": "double" } ] }
+    },
+    {
+      "@type": "Telemetry", "name": "magnetometer", "displayName": "Magnetometer (mG)",
+      "schema": { "@type": "Object", "fields": [
+        { "name": "x", "schema": "double" }, { "name": "y", "schema": "double" }, { "name": "z", "schema": "double" } ] }
+    },
+    { "@type": "Telemetry", "name": "heading", "displayName": "Compass heading", "schema": "double" },
+    { "@type": "Telemetry", "name": "buttonA", "displayName": "Button A", "schema": "boolean" },
+    { "@type": "Telemetry", "name": "buttonB", "displayName": "Button B", "schema": "boolean" },
+    { "@type": "Telemetry", "name": "uptime", "displayName": "Uptime (s)", "schema": "integer" },
+    { "@type": "Telemetry", "name": "rssi", "displayName": "Wi-Fi signal (dBm)", "schema": "integer" },
+    { "@type": "Telemetry", "name": "freeMemory", "displayName": "Free memory (bytes)", "schema": "integer" },
+
+    { "@type": "Property", "name": "firmware", "displayName": "Firmware", "schema": "string" },
+    { "@type": "Property", "name": "app", "displayName": "App version", "schema": "string" },
+    { "@type": "Property", "name": "mac", "displayName": "MAC address", "schema": "string" },
+    { "@type": "Property", "name": "ip", "displayName": "IP address", "schema": "string" },
+    { "@type": "Property", "name": "ssid", "displayName": "Wi-Fi network", "schema": "string" },
+    { "@type": "Property", "name": "telemetryInterval", "displayName": "Telemetry interval (s)", "schema": "integer", "writable": true },
+
+    { "@type": "Command", "name": "ShowText", "displayName": "Show text on display",
+      "request": { "name": "text", "displayName": "Text", "schema": "string" } },
+    { "@type": "Command", "name": "GetTelemetry", "displayName": "Send telemetry now" },
+    { "@type": "Command", "name": "Reboot", "displayName": "Reboot" }
+  ]
+}

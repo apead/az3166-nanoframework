@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>nanoFramework.System.IO.Streams</id>
+    <version>1.1.96</version>
+    <title>nanoFramework.System.IO.Streams</title>
+    <authors>nanoframework</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <icon>images\nf-logo.png</icon>
+    <readme>docs\README.md</readme>
+    <projectUrl>https://github.com/nanoframework/System.IO.Streams</projectUrl>
+    <description>This package includes the System.IO.Streams assembly for .NET nanoFramework C# projects.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) .NET Foundation and Contributors</copyright>
+    <tags>nanoFramework C# csharp netmf netnf</tags>
+    <repository type="git" url="https://github.com/nanoframework/System.IO.Streams" commit="e6d0ae8b640fa2b1b701f671801c662d16d9cd00" />
+    <dependencies>
+      <dependency id="nanoFramework.CoreLibrary" version="1.17.11" />
+      <dependency id="nanoFramework.System.Text" version="1.3.42" />
+    </dependencies>
+  </metadata>
+</package>

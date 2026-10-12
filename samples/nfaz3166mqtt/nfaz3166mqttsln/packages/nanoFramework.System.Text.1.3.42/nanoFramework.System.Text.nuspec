@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>nanoFramework.System.Text</id>
+    <version>1.3.42</version>
+    <title>nanoFramework.System.Text</title>
+    <authors>nanoFramework</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <icon>images\nf-logo.png</icon>
+    <readme>docs\README.md</readme>
+    <projectUrl>https://github.com/nanoframework/System.Text</projectUrl>
+    <description>This package includes the System.Text assembly for nanoFramework C# projects.
+This package requires a target with System.Text v100.0.0.1 (checksum 0x8E6EB73D).</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) .NET Foundation and Contributors</copyright>
+    <tags>nanoFramework C# csharp netmf netnf nanoFramework.System.Text</tags>
+    <repository type="git" url="https://github.com/nanoframework/System.Text" commit="a231e6e090940b21dc8a1593ffc09179f08ff1b0" />
+    <dependencies>
+      <dependency id="nanoFramework.CoreLibrary" version="1.17.11" />
+    </dependencies>
+  </metadata>
+</package>
