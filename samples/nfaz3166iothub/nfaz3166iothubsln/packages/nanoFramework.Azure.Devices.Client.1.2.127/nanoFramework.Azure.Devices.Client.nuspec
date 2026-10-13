@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>nanoFramework.Azure.Devices.Client</id>
+    <version>1.2.127</version>
+    <title>nanoFramework.Azure.Devices.Client</title>
+    <authors>nanoframework</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <icon>images\nf-logo.png</icon>
+    <readme>docs\README.md</readme>
+    <projectUrl>https://github.com/nanoframework/nanoFramework.Azure.Devices</projectUrl>
+    <description>This package includes the .NET nanoFramework.Azure.Devices.Client assembly for .NET nanoFramework C# projects.
+This is an SDK for Azure IoT Hub using MQTT broker.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) .NET Foundation and Contributors</copyright>
+    <tags>nanoFramework C# csharp netmf netnf Microsoft.Azure.Devices nanoFramework.Azure.Devices</tags>
+    <repository type="git" url="https://github.com/nanoframework/nanoFramework.Azure.Devices" commit="9814b4f5505883f1f75e17d500feaffed2b2bc88" />
+    <dependencies>
+      <dependency id="nanoFramework.CoreLibrary" version="1.17.11" />
+      <dependency id="nanoFramework.Json" version="2.2.213" />
+      <dependency id="nanoFramework.M2Mqtt" version="5.1.226" />
+      <dependency id="nanoFramework.M2Mqtt.Core" version="5.1.226" />
+    </dependencies>
+  </metadata>
+</package>

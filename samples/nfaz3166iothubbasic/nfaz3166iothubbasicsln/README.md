@@ -1,10 +1,15 @@
 # AZ3166 Azure IoT Hub, plain MQTT version (works on every IoT Hub tier)
 
+> **Updated for firmware 2.0.0.0** (nanoFramework rebuilt on the latest nf-interpreter `main`). The NuGet packages
+> now match its native libraries (System.Net 100.2.0.14, System.Device.Wifi 100.0.6.6; the others are unchanged), so
+> **this version doesn't deploy to the 1.x firmware**. For 1.x firmware use the samples of release `v1.2.0.0`.
+> If Visual Studio rejects the packages, update the nanoFramework extension.
+
 Same dashboard, sensors and telemetry as `nfaz3166iothub`, but **without the Azure client library**: the app talks MQTT over TLS to the
 hub itself and builds its own SAS token from the device key. Because of that it can run on the **Basic** tier, which the Azure client
 library can't (it always uses device twin and direct methods, which Basic doesn't have and which make the hub close the connection).
 
-Needs the TLS firmware (1.1.0.0 or later): see `firmware-1.1.0.0-TLS\FLASH-ME.txt`.
+Needs the TLS firmware 2.0.0.0 (`firmware/2.0.0.0-TLS`).
 
 ## Configure (top of `Program.cs`)
 

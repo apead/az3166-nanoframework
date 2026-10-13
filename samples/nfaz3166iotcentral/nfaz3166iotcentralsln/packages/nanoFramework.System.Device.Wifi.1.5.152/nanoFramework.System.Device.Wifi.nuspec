@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>nanoFramework.System.Device.Wifi</id>
+    <version>1.5.152</version>
+    <title>nanoFramework.System.Device.Wifi</title>
+    <authors>nanoframework</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <icon>images\nf-logo.png</icon>
+    <readme>docs\README.md</readme>
+    <projectUrl>https://github.com/nanoframework/System.Device.Wifi</projectUrl>
+    <description>This package includes the System.Device.Wifi assembly for .NET nanoFramework C# projects.
+This package requires a target with System.Device.Wifi v100.0.6.6 (checksum 0xEE721CDA).</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) .NET Foundation and Contributors</copyright>
+    <tags>nanoFramework C# csharp netmf netnf Wifi</tags>
+    <repository type="git" url="https://github.com/nanoframework/System.Device.Wifi" commit="58fb1d28f1650aa9879dc258aabaad665c033dfc" />
+    <dependencies>
+      <dependency id="nanoFramework.CoreLibrary" version="1.17.11" />
+      <dependency id="nanoFramework.Runtime.Events" version="1.11.39" />
+      <dependency id="nanoFramework.System.Net" version="1.11.64" />
+    </dependencies>
+  </metadata>
+</package>

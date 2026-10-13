@@ -1,7 +1,12 @@
 # AZ3166 on Azure IoT Central (nanoFramework) + OLED dashboard
 
+> **Updated for firmware 2.0.0.0** (nanoFramework rebuilt on the latest nf-interpreter `main`). The NuGet packages
+> now match its native libraries (System.Net 100.2.0.14, System.Device.Wifi 100.0.6.6; the others are unchanged), so
+> **this version doesn't deploy to the 1.x firmware**. For 1.x firmware use the samples of release `v1.2.0.0`.
+> If Visual Studio rejects the packages, update the nanoFramework extension.
+
 Connects the MXCHIP AZ3166 to **Azure IoT Central**: telemetry from every sensor, read-only and writable properties,
-and commands, with the same OLED dashboard as the other samples. **Version 1.0, not yet run on hardware.**
+and commands, with the same OLED dashboard as the other samples.
 
 How it connects (IoT Central doesn't give a device a fixed hub):
 
@@ -13,7 +18,7 @@ No Azure client library is used (the app speaks MQTT itself, see `Sas.cs`), so i
 
 ## 1. Firmware: the TLS build
 
-Flash the **TLS** firmware (1.1.0.0 or later, or `AZ3166-nanoFramework-1.2.0.0-WiFi-TLS`). The no-TLS firmware can't connect.
+Flash the **TLS** firmware 2.0.0.0 (`firmware/2.0.0.0-TLS`). The no-TLS firmware can't connect.
 *Device Capabilities* in Visual Studio's Device Explorer should show the version you flashed.
 
 ## 2. IoT Central (once)
@@ -67,8 +72,8 @@ COMPASS, WIFI, NETWORK, LOG, SYSTEM. The header box shows "A" while connected to
 | Message | Meaning |
 |---|---|
 | `No time! TLS will fail` | no NTP reply: UDP 123 blocked or no internet |
-| `DPS: Socket exception` / `-20864` | the TLS handshake ran out of memory (-20864 = mbedTLS `MD_ALLOC_FAILED`). v1.0.1+ trusts one root at a time and logs the free memory (`DPS free ...K`) before each connection |
-| `-9984` (`X509_CERT_VERIFY_FAILED`) | the server's certificate chain doesn't end at the root being tried. v1.0.2 then tries the next of the three roots (`Root n/3 no match`, then `Root n/3 ok`); if all three fail, post the log |
+| `DPS: Socket exception` / `-20864` | the TLS handshake ran out of memory (-20864 = mbedTLS `MD_ALLOC_FAILED`). The app trusts one root certificate at a time to keep the handshake small and logs the free memory (`DPS free ...K`) before each connection |
+| `-9984` (`X509_CERT_VERIFY_FAILED`) | the server's certificate chain doesn't end at the root being tried; the app then tries the next of the three roots (`Root n/3 no match`, then `Root n/3 ok`). If all three fail, check the date/time and `Certificates.cs` |
 | `DPS refused (n)` / `DPS error 401` | wrong ID scope, device ID or key (the key must belong to that device, or be the *group* key when set as `GroupKey`) |
 | `DPS error 404` | the device isn't registered and there's no enrollment group that allows it: create the device in IoT Central |
 | `DPS: assigning` repeating | DPS is still busy; it gives up after about a minute and retries |

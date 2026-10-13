@@ -1,13 +1,18 @@
 # AZ3166 on Azure IoT Hub (nanoFramework) + OLED dashboard
 
+> **Updated for firmware 2.0.0.0** (nanoFramework rebuilt on the latest nf-interpreter `main`). The NuGet packages
+> now match its native libraries (System.Net 100.2.0.14, System.Device.Wifi 100.0.6.6; the others are unchanged), so
+> **this version doesn't deploy to the 1.x firmware**. For 1.x firmware use the samples of release `v1.2.0.0`.
+> If Visual Studio rejects the packages, update the nanoFramework extension.
+
 Sends every reading the MXCHIP AZ3166 has to **Azure IoT Hub** over MQTT with TLS (port 8883), keeps a device twin, answers
 direct methods and cloud-to-device messages, and shows a dashboard on the on-board OLED.
 
-## 1. Firmware: you need the TLS build (1.1.0.0 or later)
+## 1. Firmware: you need the TLS build (2.0.0.0)
 
 IoT Hub only accepts encrypted connections, so the firmware has to include TLS. The earlier 1.0.0.x firmware does **not**.
-Flash `nanoBooter-1.1.0.0-TLS.hex` and `nanoCLR-1.1.0.0-TLS.hex` from `firmware-1.1.0.0-TLS\` (step by step in its `FLASH-ME.txt`), no chip erase needed
-(the stored Wi-Fi settings are kept). In Visual Studio's Device Explorer, *Device Capabilities* must show **1.1.0.0**.
+Flash `nanoBooter.hex` and `nanoCLR.hex` from `firmware/2.0.0.0-TLS`, no chip erase needed
+(the stored Wi-Fi settings are kept). In Visual Studio's Device Explorer, *Device Capabilities* must show **2.0.0.0**.
 
 Notes about this firmware build: TLS 1.2 only, ECDHE-RSA/ECDSA with AES-GCM or AES-CBC (P-256 and P-384), client side only
 (trimmed to fit the flash, see `target_mbedtls_config.h`).
@@ -94,8 +99,6 @@ CLIMATE, MOTION (bubble level), COMPASS, WIFI (diagnostics), NETWORK (IP, mask, 
 The header has Wi-Fi signal bars and a box that is filled with an "A" while connected to IoT Hub.
 
 ## 6. Troubleshooting
-
-The diagnostic firmware (`firmware-1.1.2.0-TLS-DIAG`) also prints `[TLS] read error -0x....` (the mbedTLS error code) to the Output window when a TLS read or write fails.
 
 | On the display / Output | Meaning |
 |---|---|

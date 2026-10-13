@@ -1,5 +1,10 @@
 # AZ3166 WiFi Test Sample for nanoFramework
 
+> **Updated for firmware 2.0.0.0** (nanoFramework rebuilt on the latest nf-interpreter `main`). The NuGet packages
+> now match its native libraries (System.Net 100.2.0.14, System.Device.Wifi 100.0.6.6; the others are unchanged), so
+> **this version doesn't deploy to the 1.x firmware**. For 1.x firmware use the samples of release `v1.2.0.0`.
+> If Visual Studio rejects the packages, update the nanoFramework extension.
+
 This sample demonstrates WiFi connectivity on the MXCHIP AZ3166 IoT DevKit using nanoFramework.
 
 ## Features
@@ -40,19 +45,12 @@ private const string WIFI_PASSWORD = "YourWiFiPassword";
 
 ### 2. Flash nanoFramework Firmware
 
-If you haven't already flashed the custom nanoFramework firmware:
+Flash the Wi-Fi firmware from `firmware/2.0.0.0-NoTLS` (or `-TLS`) with STM32CubeProgrammer, see the main README.
+Don't use `nanoff --update`: it installs the official firmware, which has no Wi-Fi.
 
-```bash
-# From nf-interpreter/build directory
-nanoff --target MXCHIP_AZ3166 --serialport COM3 --update
-# Or manually flash nanoCLR.bin using STM32 tools
-```
+### 3. NuGet Packages
 
-### 3. Restore NuGet Packages
-
-In Visual Studio:
-- Right-click the solution → Restore NuGet Packages
-- Or use Package Manager Console: `Update-Package -reinstall`
+The packages are included in `packages\` and match the firmware's native libraries. Don't update them.
 
 ### 4. Build and Deploy
 

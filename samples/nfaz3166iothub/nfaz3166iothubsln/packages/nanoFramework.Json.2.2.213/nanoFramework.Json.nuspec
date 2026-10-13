@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>nanoFramework.Json</id>
+    <version>2.2.213</version>
+    <title>nanoFramework.Json</title>
+    <authors>nanoframework</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <icon>images\nf-logo.png</icon>
+    <readme>docs\README.md</readme>
+    <projectUrl>https://github.com/nanoframework/nanoFramework.Json</projectUrl>
+    <description>This package includes nanoFramework.Json, a helper class library to deal with json serialization/deserialization in .NET nanoFramework C# projects.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) .NET Foundation and Contributors</copyright>
+    <tags>nanoFramework C# csharp netmf netnf json</tags>
+    <repository type="git" url="https://github.com/nanoframework/nanoFramework.Json" commit="65534d7815887a3a97153c6d39e3dfcf60558997" />
+    <dependencies>
+      <dependency id="nanoFramework.CoreLibrary" version="1.17.11" />
+      <dependency id="nanoFramework.System.Collections" version="1.5.75" />
+      <dependency id="nanoFramework.System.IO.Streams" version="1.1.96" />
+    </dependencies>
+  </metadata>
+</package>

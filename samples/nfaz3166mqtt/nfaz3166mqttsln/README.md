@@ -1,9 +1,14 @@
 # AZ3166 MQTT telemetry + OLED dashboard (nanoFramework)
 
+> **Updated for firmware 2.0.0.0** (nanoFramework rebuilt on the latest nf-interpreter `main`). The NuGet packages
+> now match its native libraries (System.Net 100.2.0.14, System.Device.Wifi 100.0.6.6; the others are unchanged), so
+> **this version doesn't deploy to the 1.x firmware**. For 1.x firmware use the samples of release `v1.2.0.0`.
+> If Visual Studio rejects the packages, update the nanoFramework extension.
+
 Sends every reading the MXCHIP AZ3166 has to an on-premise MQTT broker and shows a dashboard on the
 on-board OLED.
 
-Requires the Wi-Fi firmware **1.0.0.8 or later** (no firmware change needed, plain MQTT on port 1883).
+Requires the Wi-Fi firmware **2.0.0.0** (TLS or no-TLS build; plain MQTT on port 1883).
 The NuGet packages are included in `packages\` and match that firmware - don't update them.
 
 ## Configure

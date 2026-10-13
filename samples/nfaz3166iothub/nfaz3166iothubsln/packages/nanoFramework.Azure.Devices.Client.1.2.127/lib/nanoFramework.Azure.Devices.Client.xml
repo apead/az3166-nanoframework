@@ -1,0 +1,1086 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>nanoFramework.Azure.Devices.Client</name>
+    </assembly>
+    <members>
+        <member name="T:nanoFramework.Azure.Devices.Client.CloudToDeviceMessage">
+            <summary>
+            Cloud to device delegate function used for callback.
+            </summary>
+            <param name="sender">The <see cref="T:nanoFramework.Azure.Devices.Client.DeviceClient"/> class sender.</param>
+            <param name="e">The device message event arguments.</param>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Client.CloudToDeviceMessageEventArgs">
+            <summary>
+            The device message event arguments.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.CloudToDeviceMessageEventArgs.#ctor(System.String,System.String)">
+            <summary>
+            Constructor for device message event arguments.
+            </summary>
+            <param name="message">The string message.</param>
+            <param name="properties">The properties.</param>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.CloudToDeviceMessageEventArgs.Properties">
+            <summary>
+            The properties.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.CloudToDeviceMessageEventArgs.Message">
+            <summary>
+            The message.
+            </summary>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Client.IoTHubStatus">
+            <summary>
+            Azure IoT Hub status.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.IoTHubStatus.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.IoTHubStatus.Status">
+            <summary>
+            The status.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.IoTHubStatus.Message">
+            <summary>
+            The associated message if any.
+            </summary>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Client.MethodCallback">
+            <summary>
+            Method call back delegate.
+            </summary>
+            <param name="rid">The request ID.</param>
+            <param name="payload">The payload.</param>
+            <returns></returns>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Client.MethodResponseCallback">
+            <summary>
+            Method call back delegate that sets the status code of the response.
+            </summary>
+            <param name="rid">The request ID.</param>
+            <param name="payload">The payload.</param>
+            <returns>The response with the status code and payload to return to the caller.</returns>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Client.MethodCallbackRegistration">
+            <summary>
+            A registered direct method callback, optionally bound to a DTDL component.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.MethodCallbackRegistration.Callback">
+            <summary>
+            The callback delegate.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.MethodCallbackRegistration.DtdlComponentName">
+            <summary>
+            The DTDL component name the callback is bound to, or <see langword="null"/> for the default (root) component.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.MethodCallbackRegistration.MethodName">
+            <summary>
+            The method name used for matching.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.MethodCallbackRegistration.Invoke(System.Int32,System.String)">
+            <summary>
+            Invokes the callback and builds the response to return to the caller.
+            </summary>
+            <param name="rid">The request ID.</param>
+            <param name="payload">The request payload.</param>
+            <returns>The response to return. 200 with an empty payload if the callback returns <see langword="null"/>, 504 if the callback throws an exception.</returns>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.MethodCallbackRegistration.GetCallbackName(System.String)">
+            <summary>
+            Gets the method name to match, removing the decoration the compiler adds to local functions declared in top-level statements.
+            </summary>
+            <param name="rawName">The method name as reported by reflection.</param>
+            <returns>The method name to match.</returns>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.MethodCallbackRegistration.IsMethodMatch(System.String,System.String,System.String)">
+            <summary>
+            Checks if a direct method request matches a callback.
+            </summary>
+            <param name="requestedName">The method name in the request topic. Methods on a DTDL component use the format <c>componentName*methodName</c>.</param>
+            <param name="methodName">The name of the callback method.</param>
+            <param name="dtdlComponentName">The DTDL component the callback is bound to, or <see langword="null"/> for the default (root) component.</param>
+            <returns><see langword="true"/> if the request matches the callback.</returns>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Client.MethodResponse">
+            <summary>
+            The response to a direct method call.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.MethodResponse.Status">
+            <summary>
+            Gets the status code returned to the caller (ex: 200 for OK, 202 for accepted).
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.MethodResponse.Payload">
+            <summary>
+            Gets the payload returned to the caller. It must be valid JSON. <see langword="null"/> returns an empty payload.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.MethodResponse.#ctor(System.Int32,System.String)">
+            <summary>
+            Creates a <see cref="T:nanoFramework.Azure.Devices.Client.MethodResponse"/>.
+            </summary>
+            <param name="status">The status code returned to the caller (ex: 200 for OK, 202 for accepted).</param>
+            <param name="payload">The payload returned to the caller. It must be valid JSON. <see langword="null"/> returns an empty payload.</param>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Client.DeviceClient">
+            <summary>
+            Azure IoT Client SDK for .NET nanoFramework using MQTT.
+            </summary>
+        </member>
+        <member name="E:nanoFramework.Azure.Devices.Client.DeviceClient.TwinUpdated">
+            <summary>
+            Device twin updated event.
+            </summary>
+        </member>
+        <member name="E:nanoFramework.Azure.Devices.Client.DeviceClient.StatusUpdated">
+            <summary>
+            Status change event.
+            </summary>
+        </member>
+        <member name="E:nanoFramework.Azure.Devices.Client.DeviceClient.CloudToDeviceMessage">
+            <summary>
+            Cloud to device message received event.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.#ctor(System.String,System.String,System.String,System.String,nanoFramework.M2Mqtt.Messages.MqttQoSLevel,System.Security.Cryptography.X509Certificates.X509Certificate,System.String)">
+            <summary>
+            Creates an <see cref="T:nanoFramework.Azure.Devices.Client.DeviceClient"/> class.
+            </summary>
+            <param name="iotHubName">The Azure IoT name fully qualified (ex: youriothub.azure-devices.net).</param>
+            <param name="deviceId">The device ID which is the name of your device.</param>
+            <param name="moduleId">The module ID which is attached to the device ID.</param>
+            <param name="sasKey">One of the SAS Key either primary, either secondary.</param>
+            <param name="qosLevel">The default quality level delivery for the MQTT messages, default to the lower quality.</param>
+            <param name="azureCert">Azure certificate for the connection to Azure IoT Hub.</param>
+            <param name="modelId">Azure Plug and Play model ID.</param>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.#ctor(System.String,System.String,System.String,System.Security.Cryptography.X509Certificates.X509Certificate2,nanoFramework.M2Mqtt.Messages.MqttQoSLevel,System.Security.Cryptography.X509Certificates.X509Certificate,System.String)">
+            <summary>
+            Creates an <see cref="T:nanoFramework.Azure.Devices.Client.DeviceClient"/> class.
+            </summary>
+            <param name="iotHubName">Your Azure IoT Hub fully qualified domain name (example: youriothub.azure-devices.net).</param>
+            <param name="deviceId">The device ID (name of your device).</param>
+            <param name="moduleId">The module ID which is attached to the device ID.</param>
+            <param name="clientCert">The certificate to connect the device (containing both public and private keys). Pass null if you are using the certificate store on the device.</param>
+            <param name="qosLevel">The default quality of assurance level for delivery for the MQTT messages (defaults to the lowest quality).</param>
+            <param name="azureCert">Azure certificate for the connection to Azure IoT Hub.</param>
+            <param name="modelId">Azure Plug and Play model ID.</param>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.#ctor(System.String,System.String,System.String,nanoFramework.M2Mqtt.Messages.MqttQoSLevel,System.Security.Cryptography.X509Certificates.X509Certificate,System.String)">
+            <summary>
+            Creates an <see cref="T:nanoFramework.Azure.Devices.Client.DeviceClient"/> class.
+            </summary>
+            <param name="iotHubName">The Azure IoT name fully qualified (ex: youriothub.azure-devices.net).</param>
+            <param name="deviceId">The device ID which is the name of your device.</param>
+            <param name="sasKey">One of the SAS Key either primary, either secondary.</param>
+            <param name="qosLevel">The default quality level delivery for the MQTT messages, default to the lower quality.</param>
+            <param name="azureCert">Azure certificate for the connection to Azure IoT Hub.</param>
+            <param name="modelId">Azure Plug and Play model ID.</param>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.#ctor(System.String,System.String,System.Security.Cryptography.X509Certificates.X509Certificate2,nanoFramework.M2Mqtt.Messages.MqttQoSLevel,System.Security.Cryptography.X509Certificates.X509Certificate,System.String)">
+            <summary>
+            Creates an <see cref="T:nanoFramework.Azure.Devices.Client.DeviceClient"/> class.
+            </summary>
+            <param name="iotHubName">Your Azure IoT Hub fully qualified domain name (example: youriothub.azure-devices.net).</param>
+            <param name="deviceId">The device ID (name of your device).</param>
+            <param name="clientCert">The certificate to connect the device (containing both public and private keys). Pass null if you are using the certificate store on the device.</param>
+            <param name="qosLevel">The default quality of assurance level for delivery for the MQTT messages (defaults to the lowest quality).</param>
+            <param name="azureCert">Azure certificate for the connection to Azure IoT Hub.</param>
+            <param name="modelId">Azure Plug and Play model ID.</param>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.DeviceClient.ModelId">
+            <summary>
+            Azure Plug and Play model ID.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.DeviceClient.ModuleId">
+            <summary>
+            The module ID attached to the device ID.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.DeviceClient.LastTwin">
+            <summary>
+            The latest Twin received.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.DeviceClient.IoTHubStatus">
+            <summary>
+            The latest status.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.DeviceClient.QosLevel">
+            <summary>
+            The default level quality.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.DeviceClient.IsConnected">
+            <summary>
+            True if the device connected.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.Open">
+            <summary>
+            Open the connection with Azure IoT. This will initiate a connection from the device to the Azure IoT Hub instance.
+            </summary>
+            <returns>True if open.</returns>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.Reconnect">
+            <summary>
+            Reconnect to Azure Iot Hub.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.Close">
+            <summary>
+            Close the connection with Azure IoT and disconnect the device.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.GetTwin(System.Threading.CancellationToken)">
+            <summary>
+            Gets the twin.
+            </summary>
+            <param name="cancellationToken">A cancellation token.</param>
+            <returns>The twin.</returns>
+            <remarks>It is strongly recommended to use a cancellation token that can be canceled and manage this on the 
+            caller code level. A reasonable time of few seconds is recommended with a retry mechanism.</remarks>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.UpdateReportedProperties(nanoFramework.Azure.Devices.Shared.TwinCollection,System.Threading.CancellationToken)">
+            <summary>
+            Update the twin reported properties.
+            </summary>
+            <param name="reported">The reported properties.</param>
+            <param name="cancellationToken">A cancellation token. If you use the default one, the confirmation of delivery will not be awaited.</param>
+            <returns>True for successful message delivery.</returns>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.AddMethodCallback(nanoFramework.Azure.Devices.Client.MethodCallback)">
+            <summary>
+            Add a callback method.
+            </summary>
+            <param name="methodCallback">The callback method to add.</param>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.AddMethodCallback(nanoFramework.Azure.Devices.Client.MethodCallback,System.String)">
+            <summary>
+            Add a callback method for a command of a DTDL component.
+            </summary>
+            <param name="methodCallback">The callback method to add. Its name must match the command name.</param>
+            <param name="dtdlComponentName">The DTDL component name. Use <see langword="null"/> or <see cref="F:System.String.Empty"/> for the default (root) component.</param>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.AddMethodCallback(nanoFramework.Azure.Devices.Client.MethodResponseCallback)">
+            <summary>
+            Add a callback method that sets the status code of the response.
+            </summary>
+            <param name="methodCallback">The callback method to add. Its name must match the command name.</param>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.AddMethodCallback(nanoFramework.Azure.Devices.Client.MethodResponseCallback,System.String)">
+            <summary>
+            Add a callback method that sets the status code of the response, for a command of a DTDL component.
+            </summary>
+            <param name="methodCallback">The callback method to add. Its name must match the command name.</param>
+            <param name="dtdlComponentName">The DTDL component name. Use <see langword="null"/> or <see cref="F:System.String.Empty"/> for the default (root) component.</param>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.RemoveMethodCallback(nanoFramework.Azure.Devices.Client.MethodCallback)">
+            <summary>
+            Remove a callback method.
+            </summary>
+            <param name="methodCallback">The callback method to remove.</param>
+            <remarks>
+            This removes all registrations of the callback method, for any DTDL component.
+            </remarks>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.RemoveMethodCallback(nanoFramework.Azure.Devices.Client.MethodResponseCallback)">
+            <summary>
+            Remove a callback method that sets the status code of the response.
+            </summary>
+            <param name="methodCallback">The callback method to remove.</param>
+            <remarks>
+            This removes all registrations of the callback method, for any DTDL component.
+            </remarks>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.SendMessage(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Send a message to Azure IoT.
+            </summary>
+            <param name="message">The message to send.</param>
+            <param name="contentType">Content of the application message.</param>
+            <param name="cancellationToken">A cancellation token. If you use the default one, the confirmation of delivery will not be awaited.</param>
+            <returns>True for successful message delivery.</returns>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.SendMessage(System.String,System.Threading.CancellationToken,System.String)">
+            <summary>
+            Send a message to Azure IoT.
+            </summary>
+            <param name="message">The message to send.</param>
+            <param name="cancellationToken">A cancellation token. If you use the default one, the confirmation of delivery will not be awaited.</param>
+            <param name="dtdlComponentname">The DTDL component name.</param>
+            <returns>True for successful message delivery.</returns>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.SendMessage(System.String,System.String,System.Collections.ArrayList,System.Threading.CancellationToken,System.String)">
+            <summary>
+            Send a message to Azure IoT.
+            </summary>
+            <param name="message">The message to send.</param>
+            <param name="contentType">Content of the application message.</param>
+            <param name="userProperties">User properties to add to the application message.</param>
+            <param name="cancellationToken">A cancellation token. If you use the default one, the confirmation of delivery will not be awaited.</param>
+            <param name="dtdlComponentname">The DTDL component name.</param>
+            <returns>True for successful message delivery.</returns>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.DeviceClient.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Client.PropertyAcknowledge">
+            <summary>
+            Property 
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.PropertyAcknowledge.Version">
+            <summary>
+            Gets or sets the version.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.PropertyAcknowledge.Description">
+            <summary>
+            Gets or sets the Description.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.PropertyAcknowledge.Status">
+            <summary>
+            Gets or sets the status;
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.PropertyAcknowledge.Value">
+            <summary>
+            The value to report.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.PropertyAcknowledge.BuildAcknowledge">
+            <summary>
+            Bluid the acknowledge to return to IoT plug and play.
+            </summary>
+            <returns>A hashtable that will be serialized.</returns>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Client.PropertyStatus">
+            <summary>
+            Status code for the Azure Plug and Play reported values.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.PropertyStatus.Completed">
+            <summary>Completed</summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.PropertyStatus.InProgress">
+            <summary>InProgress</summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.PropertyStatus.NotFound">
+            <summary>NotFound</summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.PropertyStatus.BadRequest">
+            <summary>BadRequest</summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.PropertyStatus.InternalError">
+            <summary>BadRequest</summary>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Client.Status">
+            <summary>
+            Azure IoT Hub status.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.Status.Connected">
+            <summary>
+            Connection happened.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.Status.Disconnected">
+            <summary>
+            Disconnection happened.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.Status.TwinUpdated">
+            <summary>
+            Twin has been updated.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.Status.TwinUpdateError">
+            <summary>
+            Error updating the twins.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.Status.TwinReceived">
+            <summary>
+            Twin received.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.Status.TwinUpdateReceived">
+            <summary>
+            Twin update received.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.Status.IoTHubError">
+            <summary>
+            IoT Hub Error.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.Status.IoTHubWarning">
+            <summary>
+            IoT Hub Warning.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.Status.IoTHubInformation">
+            <summary>
+            IoT Hub Information.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.Status.IoTHubHighlightInformation">
+            <summary>
+            IoT Hub Highlight Information.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.Status.InternalError">
+            <summary>
+            Internal SDK error.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.Status.MessageReceived">
+            <summary>
+            Message received.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Client.Status.DirectMethodCalled">
+            <summary>
+            A direct method has been called.
+            </summary>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Client.StatusUpdated">
+            <summary>
+            Delegate method for status update.
+            </summary>
+            <param name="sender">The <see cref="T:nanoFramework.Azure.Devices.Client.DeviceClient"/> sender.</param>
+            <param name="e">The status updated arguments.</param>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Client.StatusUpdatedEventArgs">
+            <summary>
+            Status updated arguments.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Client.StatusUpdatedEventArgs.#ctor(nanoFramework.Azure.Devices.Client.IoTHubStatus)">
+            <summary>
+            Constructor for status updated arguments.
+            </summary>
+            <param name="status">The status.</param>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Client.StatusUpdatedEventArgs.IoTHubStatus">
+            <summary>
+            The IoT Hub status.
+            </summary>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Provisioning.Client.DeviceRegistrationResult">
+            <summary>
+            The result of a registration operation.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Provisioning.Client.DeviceRegistrationResult.#ctor(System.String,System.DateTime,System.String,System.String,nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationStatusType,System.String,System.DateTime,System.Int32,System.String,System.String)">
+            <summary>
+            Used internally by the SDK to create a new instance of the DeviceRegistrationResult class.
+            This constructor is exposed to allow serialization and unit testing of applications using this SDK.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Provisioning.Client.DeviceRegistrationResult.#ctor(System.String,System.DateTime,System.String,System.String,nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationStatusType,nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationSubstatusType,System.String,System.DateTime,System.Int32,System.String,System.String)">
+            <summary>
+            Used internally by the SDK to create a new instance of the DeviceRegistrationResult class.
+            This constructor is exposed to allow serialization and unit testing of applications using this SDK.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Provisioning.Client.DeviceRegistrationResult.#ctor(System.String,System.DateTime,System.String,System.String,nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationStatusType,nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationSubstatusType,System.String,System.DateTime,System.Int32,System.String,System.String,System.String)">
+             <summary>
+            . Constructor to allow return data
+             </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.Client.DeviceRegistrationResult.RegistrationId">
+            <summary>
+            The registration id.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.Client.DeviceRegistrationResult.CreatedDateTimeUtc">
+            <summary>
+            The time when the device originally registered with the service.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.Client.DeviceRegistrationResult.AssignedHub">
+            <summary>
+            The assigned Azure IoT Hub.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.Client.DeviceRegistrationResult.DeviceId">
+            <summary>
+            The Device Id.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.Client.DeviceRegistrationResult.Status">
+            <summary>
+            The status of the operation.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.Client.DeviceRegistrationResult.Substatus">
+            <summary>
+            The substatus of the operation.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.Client.DeviceRegistrationResult.GenerationId">
+            <summary>
+            The generation Id.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.Client.DeviceRegistrationResult.LastUpdatedDateTimeUtc">
+            <summary>
+            The time when the device last refreshed the registration.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.Client.DeviceRegistrationResult.ErrorCode">
+            <summary>
+            Error code.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.Client.DeviceRegistrationResult.ErrorMessage">
+            <summary>
+            Error message.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.Client.DeviceRegistrationResult.Etag">
+            <summary>
+            The Etag.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.Client.DeviceRegistrationResult.JsonPayload">
+            <summary>
+            The Custom data returned from the webhook to the device.
+            </summary>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Provisioning.Client.PlugAndPlay.PnpConvention">
+            <summary>
+            A helper class for formatting the DPS device registration payload, per plug and play convention.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Provisioning.Client.PlugAndPlay.PnpConvention.CreateDpsPayload(System.String)">
+            <summary>
+            Create the DPS payload to provision a device as plug and play.
+            </summary>
+            <remarks>
+            For more information on device provisioning service and plug and play compatibility,
+            and PnP device certification, see <see href="https://docs.microsoft.com/azure/iot-pnp/howto-certify-device"/>.
+            The DPS payload should be in the format:
+            <c>
+            {
+              "modelId": "dtmi:com:example:modelName;1"
+            }
+            </c>
+            For information on DTDL, see <see href="https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md"/>
+            </remarks>
+            <param name="modelId">The Id of the model the device adheres to for properties, telemetry, and commands.</param>
+            <returns>The DPS payload to provision a device as plug and play.</returns>
+            <exception cref="T:System.ArgumentNullException">If modelId is <see langword="null"/> or <see cref="F:System.String.Empty"/>.</exception>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningDeviceClient">
+            <summary>
+            Allows devices to use the Device Provisioning Service.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningDeviceClient.Create(System.String,System.String,System.String,System.String,System.Security.Cryptography.X509Certificates.X509Certificate)">
+            <returns>An instance of the ProvisioningDeviceClient</returns>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningDeviceClient.Create(System.String,System.String,System.String,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Certificate)">
+            <returns>An instance of the ProvisioningDeviceClient</returns>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningDeviceClient.Register(System.Threading.CancellationToken)">
+            <summary>
+            Registers the current device using the Device Provisioning Service and assigns it to an IoT Hub.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The registration result.</returns>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningDeviceClient.Register(nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationAdditionalData,System.Threading.CancellationToken)">
+            <summary>
+            Registers the current device using the Device Provisioning Service and assigns it to an IoT Hub.
+            </summary>
+            <param name="data">The custom content.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The registration result.</returns>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningDeviceClient.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationAdditionalData">
+            <summary>
+            Additional parameters to be passed over registartion instance
+            </summary>
+            <returns>The registration result.</returns>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationAdditionalData.JsonData">
+            <summary>
+            Additional (optional) Json Data to be sent to the service 
+            </summary>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationStatusType">
+            <summary>
+            The provisioning status type.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationStatusType.Unassigned">
+            <summary>
+            Device has not yet come on-line
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationStatusType.Assigning">
+            <summary>
+            Device has connected to the DRS but IoT Hub Id has not yet been returned to the device
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationStatusType.Assigned">
+            <summary>
+            DRS successfully returned a device Id and connection string to the device
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationStatusType.Failed">
+            <summary>
+            Device enrollment failed
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationStatusType.Disabled">
+            <summary>
+            Device is disabled
+            </summary>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationSubstatusType">
+            <summary>
+            The provisioning substatus type.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationSubstatusType.InitialAssignment">
+            <summary>
+            Device has been assigned to an IoT hub for the first time
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationSubstatusType.DeviceDataMigrated">
+            <summary>
+            Device has been assigned to a different IoT hub and its device data was migrated from the previously assigned IoT hub.
+            Device data was removed from the previously assigned IoT hub.
+            </summary>
+        </member>
+        <member name="F:nanoFramework.Azure.Devices.Provisioning.Client.ProvisioningRegistrationSubstatusType.DeviceDataReset">
+            <summary>
+            Device has been assigned to a different IoT hub and its device data was populated from the initial state stored in the enrollment.
+            Device data was removed from the previously assigned IoT hub.
+            </summary>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Provisioning.RegistrationOperationStatus">
+            <summary>
+            Registration operation status.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.RegistrationOperationStatus.operationId">
+            <summary>
+            Gets or sets operation Id.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.RegistrationOperationStatus.status">
+            <summary>
+            Gets or sets device enrollment status. Possible values include:
+            'unassigned', 'assigning', 'assigned', 'failed', 'disabled'
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.RegistrationOperationStatus.registrationState">
+            <summary>
+            The registration state
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.RegistrationOperationStatusSimple.operationId">
+            <summary>
+            Gets or sets operation Id.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Provisioning.RegistrationOperationStatusSimple.status">
+            <summary>
+            Gets or sets device enrollment status. Possible values include:
+            'unassigned', 'assigning', 'assigned', 'failed', 'disabled'
+            </summary>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Provisioning.RegistrationState">
+            <summary>
+            Used for the deserialization of the registration message
+            </summary>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Shared.Twin">
+            <summary>
+            Twin Representation.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Shared.Twin.#ctor">
+            <summary>
+            Creates an instance of <see cref="T:nanoFramework.Azure.Devices.Shared.Twin"/>.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Shared.Twin.#ctor(System.String)">
+            <summary>
+            Creates an instance of <see cref="T:nanoFramework.Azure.Devices.Shared.Twin"/>.
+            </summary>
+            <param name="deviceId">Device Id</param>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Shared.Twin.#ctor(System.String,System.String)">
+            <summary>
+            Creates an instance of <see cref="T:nanoFramework.Azure.Devices.Shared.Twin"/>.
+            </summary>
+            <param name="deviceId">Device Id.</param>
+            <param name="jsonTwin">The json twin.</param>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Shared.Twin.#ctor(nanoFramework.Azure.Devices.Shared.TwinProperties)">
+            <summary>
+            Creates an instance of <see cref="T:nanoFramework.Azure.Devices.Shared.Twin"/>.
+            </summary>
+            <param name="twinProperties">The twin properties.</param>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Shared.Twin.DeviceId">
+            <summary>
+            Gets and sets the <see cref="T:nanoFramework.Azure.Devices.Shared.Twin"/> Id.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Shared.Twin.ModelId">
+            <summary>
+            The DTDL model Id of the device.
+            </summary>
+            <remarks>
+            The value will be null for a non-pnp device.
+            The value will be null for a pnp device until the device connects and registers with the model Id.
+            </remarks>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Shared.Twin.Properties">
+            <summary>
+            Gets and sets the <see cref="T:nanoFramework.Azure.Devices.Shared.Twin"/> properties.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Shared.Twin.Version">
+            <summary>
+            Twin's Version
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Shared.Twin.ToJson">
+            <summary>
+            Gets the Twin as a JSON string.
+            </summary>
+            <returns>JSON string</returns>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Shared.TwinCollection">
+            <summary>
+            Represents a collection of properties for <see cref="T:nanoFramework.Azure.Devices.Shared.Twin"/>.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Shared.TwinCollection.#ctor">
+            <summary>
+            Creates an empty <see cref="T:nanoFramework.Azure.Devices.Shared.TwinCollection"/>.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Shared.TwinCollection.#ctor(System.String)">
+            <summary>
+            Creates a <see cref="T:nanoFramework.Azure.Devices.Shared.TwinCollection"/> using the given JSON fragments for the body.
+            </summary>
+            <param name="twinJson">JSON fragment containing the twin data.</param>        
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Shared.TwinCollection.#ctor(System.Collections.Hashtable)">
+            <summary>
+            Creates a <see cref="T:nanoFramework.Azure.Devices.Shared.TwinCollection"/> using the given JSON fragments for the body.
+            </summary>
+            <param name="twin">The JSON hashtable.</param>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Shared.TwinCollection.Version">
+            <summary>
+            Gets the version of the <see cref="T:nanoFramework.Azure.Devices.Shared.TwinCollection"/>.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Shared.TwinCollection.Count">
+            <summary>
+            Gets the count of properties in the Collection.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Shared.TwinCollection.Item(System.String)">
+            <summary>
+            Property Indexer.
+            </summary>
+            <param name="propertyName">Name of the property to get.</param>
+            <returns>Value for the given property name.</returns>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Shared.TwinCollection.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Shared.TwinCollection.ToJson">
+            <summary>
+            Gets the TwinProperties as a JSON string.
+            </summary>
+            <returns>JSON string</returns>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Shared.TwinCollection.Add(System.String,System.Object)">
+            <summary>
+            Add a property.
+            </summary>
+            <param name="property">The property to add.</param>
+            <param name="value">The value of the property.</param>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Shared.TwinCollection.Contains(System.String)">
+            <summary>
+            Determines whether the specified property is present.
+            </summary>
+            <param name="propertyName">The property to locate.</param>
+            <returns>True if the specified property is present; otherwise, false.</returns>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Shared.TwinCollection.GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Shared.TwinProperties">
+            <summary>
+            Represents <see cref="T:nanoFramework.Azure.Devices.Shared.Twin"/> properties
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Shared.TwinProperties.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:nanoFramework.Azure.Devices.Shared.TwinProperties"/>
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Shared.TwinProperties.#ctor(System.Collections.Hashtable,System.Collections.Hashtable)">
+            <summary>
+            Initializes a new instance of <see cref="T:nanoFramework.Azure.Devices.Shared.TwinProperties"/>
+            </summary>
+            <param name="desired">Hashtable for the desired properties</param>
+            <param name="reported">Hashtable for the reported properties</param>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Shared.TwinProperties.Desired">
+            <summary>
+            Gets and sets the <see cref="T:nanoFramework.Azure.Devices.Shared.Twin"/> desired properties.
+            </summary>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Shared.TwinProperties.Reported">
+            <summary>
+            Gets and sets the <see cref="T:nanoFramework.Azure.Devices.Shared.Twin"/> reported properties.
+            </summary>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Shared.TwinUpdated">
+            <summary>
+            Delegate for Twin updated.
+            </summary>
+            <param name="sender">The <see cref="T:nanoFramework.Azure.Devices.Client.DeviceClient"/> sender.</param>
+            <param name="e">The Twin updated event arguments.</param>
+        </member>
+        <member name="T:nanoFramework.Azure.Devices.Shared.TwinUpdateEventArgs">
+            <summary>
+            Twin updated event arguments.
+            </summary>
+        </member>
+        <member name="M:nanoFramework.Azure.Devices.Shared.TwinUpdateEventArgs.#ctor(nanoFramework.Azure.Devices.Shared.TwinCollection)">
+            <summary>
+            Constructor for Twin updated event arguments.
+            </summary>
+            <param name="twin">The twin collection.</param>
+        </member>
+        <member name="P:nanoFramework.Azure.Devices.Shared.TwinUpdateEventArgs.Twin">
+            <summary>
+            Twin collection.
+            </summary>
+        </member>
+        <member name="T:System.Security.Cryptography.HMACSHA256">
+            <summary> 
+            Computes a Hash-based Message Authentication Code (HMAC) by using the System.Security.Cryptography.SHA256 
+            hash function.
+            </summary> 
+        </member>
+        <member name="P:System.Security.Cryptography.HMACSHA256.Key">
+            <summary>
+            Gets or sets the key to use in the HMAC calculation.
+            </summary>
+        </member>
+        <member name="M:System.Security.Cryptography.HMACSHA256.#ctor(System.Byte[])">
+            <summary>
+            Initializes a new instance of the System.Security.Cryptography.HMACSHA256 class
+            with the specified key data.
+            </summary>
+            <param name="key">The secret key for System.Security.Cryptography.HMACSHA256 encryption. The key
+            can be any length. However, the recommended size is 64 bytes max.</param>
+        </member>
+        <member name="M:System.Security.Cryptography.HMACSHA256.ComputeHash(System.Byte[])">
+            <summary>
+            Computes the hash value for the specified byte array.
+            </summary>
+            <param name="buffer">The input to compute the hash code for.</param>
+            <returns>The computed hash code.</returns>
+            <exception cref="T:System.ArgumentNullException">buffer is null.</exception>
+        </member>
+        <member name="M:System.Security.Cryptography.HMACSHA256.ComputeHMACSHA256(System.Byte[],System.Byte[])">
+            <summary> 
+              Compute HMAC SHA-256 
+            </summary> 
+            <param name = "secret">Secret</param> 
+            <param name = "value">Password</param> 
+            <returns>32 byte HMAC_SHA256</returns> 
+        </member>
+        <member name="T:System.Security.Cryptography.SHA256">
+            <summary>
+            Computes the SHA256 hash for the input data.
+            </summary>
+        </member>
+        <member name="M:System.Security.Cryptography.SHA256.Create">
+            <summary>
+            Creates an instance of the default implementation of System.Security.Cryptography.SHA256.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Security.Cryptography.SHA256.#ctor">
+            <summary>
+            Initializes a new instance of SHA256.
+            </summary>
+        </member>
+        <member name="M:System.Security.Cryptography.SHA256.ComputeHash(System.Byte[])">
+            <summary> 
+            Compute SHA-256 digest 
+            </summary> 
+            <param name = "input">Input array</param> 
+            <returns>The computed SHA256</returns>
+        </member>
+        <member name="T:System.Web.Private.HttpUtility">
+            <summary>
+            Utilities to encode and decode URLs.
+            </summary>
+        </member>
+        <member name="M:System.Web.Private.HttpUtility.UrlEncode(System.String)">
+            <summary>
+            Encodes a URL string.
+            </summary>
+            <param name="str">The text to encode.</param>
+            <returns>An encoded string.</returns>
+        </member>
+        <member name="M:System.Web.Private.HttpUtility.UrlEncode(System.String,System.Text.Encoding)">
+            <summary>
+            Encodes a URL string using the specified encoding object.
+            </summary>
+            <param name="str">The text to encode.</param>
+            <param name="e">The <see cref="T:System.Text.Encoding"/> object that specifies the encoding scheme.</param>
+            <returns>An encoded string.</returns>
+        </member>
+        <member name="M:System.Web.Private.HttpUtility.UrlEncode(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Converts a byte array into a URL-encoded string, starting at the specified position in the array and continuing for the specified number of bytes.
+            </summary>
+            <param name="bytes">The array of bytes to encode.</param>
+            <param name="offset">The position in the byte array at which to begin encoding.</param>
+            <param name="count">The number of bytes to encode.</param>
+            <returns>An encoded string.</returns>
+        </member>
+        <member name="M:System.Web.Private.HttpUtility.UrlEncode(System.Byte[])">
+            <summary>
+            Converts a byte array into an encoded URL string.
+            </summary>
+            <param name="bytes">The array of bytes to encode.</param>
+            <returns>An encoded string.</returns>
+        </member>
+        <member name="M:System.Web.Private.HttpUtility.UrlEncodeToBytes(System.String,System.Text.Encoding)">
+            <summary>
+            Converts a string into a URL-encoded array of bytes using the specified encoding object.
+            </summary>
+            <param name="str">The string to encode.</param>
+            <param name="e">The <see cref="T:System.Text.Encoding"/> that specifies the encoding scheme.</param>
+            <returns>An encoded array of bytes.</returns>
+        </member>
+        <member name="M:System.Web.Private.HttpUtility.UrlEncodeToBytes(System.Byte[])">
+            <summary>
+            Converts a URL-encoded array of bytes into a decoded array of bytes.
+            </summary>
+            <param name="bytes">The array of bytes to encode</param>
+            <returns>A decoded array of bytes.</returns>
+        </member>
+        <member name="M:System.Web.Private.HttpUtility.UrlEncodeToBytes(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Converts an array of bytes into a URL-encoded array of bytes, starting at the specified position in the array and continuing for the specified number of bytes.
+            </summary>
+            <param name="bytes">The array of bytes to encode</param>
+            <param name="offset">The position in the byte array at which to begin encoding</param>
+            <param name="count">The number of bytes to encode</param>
+            <returns>An encoded array of bytes.</returns>		
+        </member>
+        <member name="M:System.Web.Private.HttpUtility.UrlDecode(System.String)">
+            <summary>
+            Converts a string that has been encoded for transmission in a URL into a decoded string.
+            </summary>
+            <param name="str">The string to decode.</param>
+            <returns>The decoded URL</returns>
+        </member>
+        <member name="M:System.Web.Private.HttpUtility.UrlDecode(System.String,System.Text.Encoding)">
+            <summary>
+            Converts a URL-encoded string into a decoded string, using the specified encoding object.
+            </summary>
+            <param name="str">The string to decode.</param>
+            <param name="e">The <see cref="T:System.Text.Encoding"/> that specifies the decoding scheme.</param>
+            <returns>A decoded string.</returns>
+        </member>
+        <member name="M:System.Web.Private.HttpUtility.UrlDecode(System.Byte[],System.Int32,System.Int32,System.Text.Encoding)">
+            <summary>
+            Converts a URL-encoded byte array into a decoded string using the specified encoding object, starting at the specified position in the array, and continuing for the specified number of bytes.
+            </summary>
+            <param name="bytes">The array of bytes to decode.</param>
+            <param name="offset">The position in the byte to begin decoding</param>
+            <param name="count">The number of bytes to decode.</param>
+            <param name="e">The <see cref="T:System.Text.Encoding"/> object that specifies the encoding scheme.</param>
+            <returns>A decoded string.</returns>
+        </member>
+        <member name="M:System.Web.Private.HttpUtility.UrlDecode(System.Byte[],System.Text.Encoding)">
+            <summary>
+            Converts a URL-encoded byte array into a decoded string using the specified decoding object.
+            </summary>
+            <param name="bytes">The array of bytes to decode.</param>
+            <param name="e">The <see cref="T:System.Text.Encoding"/> object that specifies the encoding scheme.</param>
+            <returns>A decoded string.</returns>
+        </member>
+        <member name="M:System.Web.Private.HttpUtility.UrlDecodeToBytes(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Converts a URL-encoded array of bytes into a decoded array of bytes, starting at the specified position in the array and continuing for the specified number of bytes.
+            </summary>
+            <param name="bytes">The array of bytes to decode.</param>
+            <param name="offset">The position in the byte array at which to begin decoding.</param>
+            <param name="count">The number of bytes to decode.</param>
+            <returns>A decoded array of bytes.</returns>
+        </member>
+        <member name="M:System.Web.Private.HttpUtility.UrlDecodeToBytes(System.String,System.Text.Encoding)">
+            <summary>
+            Converts a URL-encoded string into a decoded array of bytes using the specified decoding object.
+            </summary>
+            <param name="str">The string to encode.</param>
+            <param name="e">The <see cref="T:System.Text.Encoding"/> object that specifies the encoding scheme.</param>
+            <returns>A decoded array of bytes.</returns>
+        </member>
+        <member name="M:System.Web.Private.HttpUtility.UrlDecodeToBytes(System.String)">
+            <summary>
+            Converts a URL-encoded string into a decoded array of bytes.
+            </summary>
+            <param name="str">The string to decode.</param>
+            <returns>A decoded array of bytes.</returns>
+        </member>
+        <member name="M:System.Web.Private.HttpUtility.UrlDecodeToBytes(System.Byte[])">
+            <summary>
+            Converts a URL-encoded array of bytes into a decoded array of bytes.
+            </summary>
+            <param name="bytes">The array of bytes to decode.</param>
+            <returns>A decoded array of bytes.</returns>
+        </member>
+        <member name="M:System.Web.Private.HttpUtility.HexToInt(System.Char)">
+            <summary>
+            Get the int value of a char.
+            </summary>
+            <param name="h">The <see cref="T:System.Char"/> to convert.</param>
+            <returns>The <see cref="T:System.Int32"/> value of the <see cref="T:System.Char"/>.</returns>
+        </member>
+    </members>
+</doc>
